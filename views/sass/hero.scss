@@ -10,6 +10,7 @@
   background-repeat: no-repeat;
   background-position: top;
   background-size: cover;
+  height: 100vh;
   padding-bottom: 4em;
 
   .hero-logo img {
@@ -24,14 +25,20 @@
     margin: auto;
     text-align: center;
     color: $hero-color;
+    
     a {
       color: $hero-color;
       & :hover {
         color: darken($hero-color, 20%);
       }
     }
+    
+    input.search {color: $base-font-color;}
+
     .hero-copy {
+      
       text-align: center;
+      
       h1 {
         font-size: 1.6em;
         margin-bottom: .5em;
@@ -56,3 +63,5 @@
     }
   }
 }
+
+

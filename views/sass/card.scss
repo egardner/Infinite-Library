@@ -1,0 +1,46 @@
+.card {
+  @include display(flex);
+  @include flex-direction(column);
+  @include align-items(stretch);
+  @include justify-content(flex-start);
+  border-radius: $base-border-radius;
+  box-shadow: $base-box-shadow;
+  height: 320px;
+  overflow: hidden;
+  
+  background-position: center center;
+  background-size: cover;
+
+  -webkit-background-clip: padding-box; 
+  -moz-background-clip:    padding; 
+  background-clip:         padding-box;
+
+}
+
+.card__title {
+  //@include flex(0 0 20%);
+  background-color: transparentize(#000, 0.5);
+  color: #fff;
+  margin-bottom: 0;
+  padding: $small-spacing;
+  text-align: left;
+  display: block;
+  z-index: 10;
+  overflow: hidden;
+
+  border-bottom-left-radius: $base-border-radius;
+  border-bottom-right-radius: $base-border-radius;
+}
+
+.card__header {
+  @include flex(0 0 70%);
+  color: #fff;
+  padding: $small-spacing;
+}
+
+.card__body {
+  @include flex(0 0 30%);
+  background-color: #fff;
+  padding: $small-spacing;
+  font-size: $base-font-size * .85;
+}

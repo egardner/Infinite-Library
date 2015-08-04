@@ -1,0 +1,65 @@
+.grid-container {
+  @include outer-container;
+}
+
+.grid {
+  @include display(flex);
+  @include flex-wrap(wrap);
+}
+
+.grid--gutters {
+  margin: -$base-spacing 0 0 -$base-spacing;
+}
+
+.grid--gutters > .grid-cell {
+  padding: $base-spacing 0 0 $base-spacing;
+}
+
+.grid-cell {
+  @include flex(1);
+}
+
+.grid-cell--full {
+  @include flex(0 0 100%);
+}
+
+.grid-cell--1of2 {
+  @include flex(0 0 50%);
+}
+
+.grid-cell--1of3 {
+  @include flex(0 0 33%);
+}
+
+.grid-cell--1of4 {
+  @include flex(0 0 25%);
+}
+
+.grid-cell--1of5 {
+  @include flex(0 0 20%);
+}
+
+// Responsive sizes
+.grid-cell-med--1of2 {
+  @include media($medium-screen-up) {
+    @include flex(0 0 50%);
+  }
+}
+
+.grid-cell-large--1of3 {
+  @include media($large-screen-up) {
+    @include flex(0 0 33%);
+  }
+}
+
+.grid-cell-large--1of4 {
+  @include media($large-screen-up) {
+    @include flex(0 0 25%);
+  }
+}
+
+.grid-cell-x-large--1of4 {
+  @include media($x-large-screen-up) {
+    @include flex(0 0 25%);
+  }
+}
