@@ -15,13 +15,11 @@ ENV['CLIENT_ID']     ||= ''
 ENV['CLIENT_SECRET'] ||= ''
 
 configure do
-  set :scss, {:style => :compressed, :debug_info => false}
+  set :scss, :style => :compressed, :debug_info => false
 end
-
 
 #===============================================================================
 ## Routes
-
 
 get '/css/:name.css' do |name|
   content_type :css
@@ -38,13 +36,13 @@ get '/search' do
     :client_id => ENV['CLIENT_ID'], 
     :client_secret => ENV['CLIENT_SECRET'])
   book    = params['book']
-  user    = client.user("GITenberg")
+  user    = client.user('GITenberg')
   results = client.search_repositories "#{book} user:#{user.name}"
 
   @found_books  = []
-  @message      = "Sorry, no results found."
-  @colors       = [ "bg-navy", "bg-blue", "bg-teal", "bg-olive", "bg-green", 
-    "bg-yellow", "bg-red", "bg-orange", "bg-maroon", "bg-purple"]
+  @message      = 'Sorry, no results found.'
+  @colors       = ['bg-navy', 'bg-blue', 'bg-teal', 'bg-olive', 'bg-green', 
+   		   'bg-yellow', 'bg-red', 'bg-orange', 'bg-maroon', 'bg-purple']
 
   if results.items.length > 0
     results.items.each do |repo|
@@ -84,59 +82,55 @@ get '/book/:repo' do
   haml :contents, :layout => :default_layout
 end
 
-
 #===============================================================================
 ## Methods
 
 #===============================================================================
 # Humanize String method
-# Cleans up GITenberg book titles into something more human-friendly 
+# Cleans up GITenberg book titles into something more human-friendly
 # Returns a string
 # Not 100% there just yet.
 #===============================================================================
 def humanize_string(ugly_string)
-  pretty_string = ugly_string
+  ugly_string
     .split('_')[0]
-    .split("--")[0]
-    .gsub("-", " ")
+    .split('--')[0]
+    .gsub('-', ' ')
     .split(/(?<!^)(?=[A-Z])/)
-    .join(" ")
-
-  return pretty_string
+    .join(' ')
 end
 
 #===============================================================================
 # Process Repo Contents method
-# Accepts a Sawywer::Resource object for a single Github repo 
+# Accepts a Sawywer::Resource object for a single Github repo
 # Returns a book hash full of data from repo's contents
 #===============================================================================
-def process_repo_contents(repo)  
-
+def process_repo_contents(repo)
   # Initialize Octokit client
   client = Octokit::Client.new(
     :client_id => ENV['CLIENT_ID'], 
     :client_secret => ENV['CLIENT_SECRET'])
 
-  user = client.user("GITenberg")
+  user = client.user('GITenberg')
   
-  book = { 
+  book = {
     :repo   => repo.name,
     :name   => humanize_string(repo.name),
     :id     => repo.name.split('_')[-1],
     :desc   => repo.description,
     :files  => {},
-    :cover  => ""
-  } 
-  
+    :cover  => ''
+  }
+ 
   # Check for subtitle
-  unless repo.name.index('--') == nil
-    subtitle = repo.name.split('_')[0].split("--")[-1].gsub("-", " ")
+  unless repo.name.index('--').nil?
+    subtitle = repo.name.split('_')[0].split('--')[-1].gsub('-', ' ')
     book.store(:subtitle, subtitle)
   end
-  
+
   # Loop through repo contents to find book files
-  # Check repo size first – very small but non-zero values for "size" attr
-  # seem to indicate that the repository is empty. Not sure if there is a 
+  # Check repo size first: very small but non-zero values for "size" attr
+  # seem to indicate that the repository is empty. Not sure if there is a
   # better way to check for this with Github's api.
   # Attempting to call .contents on a repo without contents throws an error.
   unless repo.size < 50
