@@ -1,10 +1,11 @@
 .hero
   .hero-inner
-    %a.hero-logo{:href => ""}
+    .hero-logo
       %img{:src => "https://raw.githubusercontent.com/thoughtbot/refills/master/source/images/placeholder_logo_1.png", :alt=>"Logo Image"}
       .hero-copy
-        %h1= @product
+        %h1= @message
         %p
           A few reasons why this product is worth using, who it's for, and why they need it.
-    %button
-      Learn More
+    %form{:action => "/search", :method => "get"}
+      %input.search{:type => "text", :name =>"book", :placeholder=>"search"}
+      %input{:type => "submit"}

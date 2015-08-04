@@ -1,0 +1,20 @@
+.grid-container
+  %h1 Results
+  %h2= @message
+
+  .grid.grid--gutters
+    - if @found_books.length > 0
+      - @found_books.each do |book|
+        .grid-cell.grid-cell--1of2.grid-cell-large--1of4
+          - if book[:cover] != ""
+            %a{:href => "book/#{book[:repo]}"}
+              .card{:style => "background-image: url(#{book[:cover]})"}
+          - else
+            %div{:class => "card #{@colors.sample}"}
+              %a{:href => "book/#{book[:repo]}", :class => "card__header"}
+                %h3= book[:name]
+                - if book[:subtitle]
+                  %h4
+                    %em= book[:subtitle]
+              .card__body 
+                %p= book[:desc]
