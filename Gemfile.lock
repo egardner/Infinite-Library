@@ -19,6 +19,9 @@ PLATFORMS
 
 DEPENDENCIES
   haml
-  sass (>= 3.3.0)
+  sass
   shotgun
   sinatra
+
+BUNDLED WITH
+   1.10.4
